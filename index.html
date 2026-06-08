@@ -7,13 +7,32 @@
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { background: #F7FAF7; height: 100vh; overflow: hidden; font-family: 'Inter', system-ui, sans-serif; }
-  iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+  iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; z-index: 1; }
 
+  /* Floating role button */
+  .role-fab {
+    position: fixed;
+    bottom: 24px; right: 16px;
+    z-index: 10000;
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: #2E7D32;
+    border: none;
+    box-shadow: 0 4px 16px rgba(46,125,50,0.35);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.2s, background 0.15s;
+  }
+  .role-fab:hover { background: #256528; }
+  .role-fab.open { transform: rotate(45deg); background: #1B5E20; }
+  .role-fab svg { width: 22px; height: 22px; stroke: #FFFFFF; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* Dropdown */
   .dd {
     display: none;
     position: fixed;
-    top: 56px; right: 16px;
-    z-index: 99999;
+    bottom: 82px; right: 16px;
+    z-index: 10000;
     background: #FFFFFF;
     border: 1px solid #E5EDE5;
     border-radius: 14px;
@@ -22,6 +41,15 @@
     overflow: hidden;
   }
   .dd.open { display: block; }
+
+  .dd-title {
+    padding: 12px 20px 8px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #8FA58F;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
 
   .rb {
     display: block; width: 100%;
@@ -34,14 +62,27 @@
     cursor: pointer;
     transition: background 0.1s;
   }
-  .rb:first-child { border-top: none; }
   .rb:hover { background: #F0F5F0; }
   .rb.a { background: #E8F5E9; color: #2E7D32; font-weight: 600; }
+
+  /* Overlay behind dropdown */
+  .dd-overlay {
+    display: none;
+    position: fixed; inset: 0;
+    z-index: 9999;
+    background: rgba(0,0,0,0.15);
+  }
+  .dd-overlay.open { display: block; }
 </style>
 </head>
 <body>
 
+<!-- Overlay -->
+<div class="dd-overlay" id="overlay" onclick="close()"></div>
+
+<!-- Dropdown -->
 <div class="dd" id="dd">
+  <div class="dd-title">Выберите роль</div>
   <button class="rb a" onclick="go(0)">Управляющий</button>
   <button class="rb" onclick="go(1)">Начальник смены</button>
   <button class="rb" onclick="go(2)">Сотрудник смены</button>
@@ -49,6 +90,12 @@
   <button class="rb" onclick="go(4)">Менеджер по продажам</button>
 </div>
 
+<!-- FAB -->
+<button class="role-fab" id="fab" onclick="toggle()">
+  <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+</button>
+
+<!-- Frame -->
 <iframe id="frame" src="upravlyayushchiy.html"></iframe>
 
 <script>
@@ -64,20 +111,27 @@ var cur = 0, isOpen = false;
 function go(i) {
   if (i !== cur) { document.getElementById('frame').src = files[i]; cur = i; }
   document.querySelectorAll('.rb').forEach(function(b, j) { b.className = 'rb' + (j === i ? ' a' : ''); });
-  isOpen = false;
-  document.getElementById('dd').className = 'dd';
+  close();
 }
 
-window.addEventListener('message', function(e) {
-  if (e.data && e.data.type === 'toggleRoles') {
-    isOpen = !isOpen;
-    document.getElementById('dd').className = 'dd' + (isOpen ? ' open' : '');
-  }
-  if (e.data && e.data.type === 'switchRole') { go(e.data.idx); }
-});
+function toggle() {
+  isOpen = !isOpen;
+  document.getElementById('dd').className = 'dd' + (isOpen ? ' open' : '');
+  document.getElementById('fab').className = 'role-fab' + (isOpen ? ' open' : '');
+  document.getElementById('overlay').className = 'dd-overlay' + (isOpen ? ' open' : '');
+}
 
-document.addEventListener('click', function(e) {
-  if (!e.target.closest('.dd')) { isOpen = false; document.getElementById('dd').className = 'dd'; }
+function close() {
+  isOpen = false;
+  document.getElementById('dd').className = 'dd';
+  document.getElementById('fab').className = 'role-fab';
+  document.getElementById('overlay').className = 'dd-overlay';
+}
+
+// Also listen to postMessage from iframes
+window.addEventListener('message', function(e) {
+  if (e.data && e.data.type === 'toggleRoles') toggle();
+  if (e.data && e.data.type === 'switchRole') go(e.data.idx);
 });
 </script>
 </body>
