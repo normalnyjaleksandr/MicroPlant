@@ -1,0 +1,356 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: #F7FAF7;
+    color: #1A2E1A;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  @media (min-width: 1024px) { body { flex-direction: row; } }
+
+  /* ─── SIDEBAR ─── */
+  .sidebar {
+    width: 240px;
+    min-width: 240px;
+    height: 100vh;
+    background: #FFFFFF;
+    border-right: 1px solid #E5EDE5;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sidebar-logo {
+    height: 72px;
+    border-bottom: 1px solid #E5EDE5;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+
+  .logo-text {
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #1A2E1A;
+  }
+
+  .sidebar-nav {
+    flex: 1;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 44px;
+    padding: 0 14px;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+  }
+
+  .nav-item:hover { background: #F0F5F0; }
+  .nav-item.active { background: #2E7D32; }
+  .nav-item.active .nav-text { color: #FFFFFF; }
+
+  .nav-icon {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .nav-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #5A7A5A;
+  }
+
+  .sidebar-footer {
+    padding: 12px;
+    border-top: 1px solid #E5EDE5;
+  }
+
+  .logout-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 44px;
+    padding: 0 14px;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+  }
+
+  .logout-btn:hover { background: #F0F5F0; }
+
+  .logout-btn svg {
+    width: 18px;
+    height: 18px;
+    stroke: #5A7A5A;
+    fill: none;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .logout-btn span {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #5A7A5A;
+  }
+
+  /* ─── MAIN ─── */
+  .main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .header {
+    height: 72px;
+    background: #FFFFFF;
+    border-bottom: 1px solid #E5EDE5;
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    flex-shrink: 0;
+  }
+
+  .header-date {
+    font-size: 14px;
+    color: #5A7A5A;
+    font-weight: 400;
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .bell-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: #FFFFFF;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: background 0.15s;
+  }
+
+  .bell-btn:hover { background: #F0F5F0; }
+
+  .bell-btn svg {
+    width: 20px;
+    height: 20px;
+    stroke: #6B8A6B;
+    fill: none;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .bell-dot {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #FF8F00;
+    border: 1.5px solid #FFFFFF;
+  }
+
+  .user-btn {
+    height: 40px;
+    padding: 0 14px;
+    border-radius: 11.5px;
+    background: #F7FAF7;
+    border: 1px solid #D4E8D4;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+
+  .user-btn:hover { background: #EEF5EE; }
+
+  .user-btn svg {
+    width: 18px;
+    height: 18px;
+    stroke: #1A2E1A;
+    fill: none;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .user-btn-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #1A2E1A;
+  }
+
+  .user-btn-chevron {
+    width: 14px;
+    height: 14px;
+    stroke: #6B8A6B;
+    fill: none;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .content {
+    flex: 1;
+    overflow-y: auto;
+    background: #F7FAF7;
+    scrollbar-width: none;
+  }
+  .content::-webkit-scrollbar { display: none; }
+
+  .screen { display: none; width: 100%; height: 100%; }
+  .screen.active { display: block; }
+
+  /* ═══ MOBILE ADAPTIVE ═══ */
+  .mobile-header {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 56px; padding: 0 16px; background: #FFFFFF;
+    border-bottom: 1px solid #E5EDE5; position: sticky; top: 0; z-index: 100; flex-shrink: 0;
+  }
+  .mobile-header-logo { display: flex; align-items: center; gap: 10px; }
+  .burger-btn { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: none; border: none; cursor: pointer; border-radius: 10px; }
+  .burger-btn:hover { background: #F0F5F0; }
+  .burger-btn svg { width: 22px; height: 22px; stroke: #1A2E1A; fill: none; stroke-width: 1.8; stroke-linecap: round; }
+
+  .panel-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.3); z-index: 200; }
+  .panel-overlay.open { display: block; }
+  .slide-panel { position: fixed; top: 0; right: 0; width: 280px; height: 100vh; background: #FFFFFF; border-left: 1px solid #E5EDE5; z-index: 201; transform: translateX(100%); transition: transform 0.25s ease; display: flex; flex-direction: column; box-shadow: -4px 0 24px rgba(0,0,0,0.1); }
+  .slide-panel.open { transform: translateX(0); }
+  .panel-header { padding: 20px; border-bottom: 1px solid #E5EDE5; display: flex; flex-direction: column; gap: 16px; }
+  .panel-date { font-size: 13px; color: #5A7A5A; }
+  .panel-role-btn { height: 44px; padding: 0 16px; border-radius: 12px; background: #F7FAF7; border: 1px solid #D4E8D4; display: flex; align-items: center; gap: 8px; cursor: pointer; width: 100%; }
+  .panel-role-btn:hover { background: #EEF5EE; }
+  .panel-role-btn svg { width: 18px; height: 18px; stroke: #1A2E1A; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+  .panel-role-btn span { font-size: 14px; font-weight: 500; color: #1A2E1A; }
+  .panel-role-btn .chevron { width: 14px; height: 14px; stroke: #6B8A6B; stroke-width: 1.8; margin-left: auto; }
+  .panel-nav { flex: 1; padding: 12px; display: flex; flex-direction: column; gap: 4px; }
+  .panel-nav-item { display: flex; align-items: center; gap: 10px; height: 44px; padding: 0 14px; border-radius: 14px; cursor: pointer; transition: background 0.15s; border: none; background: none; width: 100%; text-align: left; }
+  .panel-nav-item:hover { background: #F0F5F0; }
+  .panel-nav-item.active { background: #2E7D32; }
+  .panel-nav-item.active .pnav-text { color: #FFFFFF; }
+  .panel-nav-item.active .pnav-icon svg { stroke: #FFFFFF; }
+  .pnav-icon { width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; }
+  .pnav-icon svg { width: 18px; height: 18px; stroke: #5A7A5A; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+  .pnav-text { font-size: 14px; font-weight: 500; color: #5A7A5A; }
+  .panel-footer { padding: 12px; border-top: 1px solid #E5EDE5; }
+  .panel-logout { display: flex; align-items: center; gap: 10px; height: 44px; padding: 0 14px; border-radius: 14px; cursor: pointer; background: none; border: none; width: 100%; }
+  .panel-logout:hover { background: #F0F5F0; }
+  .panel-logout svg { width: 18px; height: 18px; stroke: #5A7A5A; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+  .panel-logout span { font-size: 14px; font-weight: 500; color: #5A7A5A; }
+
+  @media (max-width: 1023px) {
+    .sidebar { display: none !important; }
+    .header { display: none !important; }
+    .main { min-width: 0; }
+
+    /* ── Отступы: единая система ── */
+    /* Внешний контейнер */
+    #screen-tasks > div { padding: 16px !important; gap: 12px !important; }
+
+    /* Прогресс-карточка */
+    #screen-tasks > div > div:first-child [style*="padding:20px 24px"] { padding: 14px 16px !important; }
+    #screen-tasks > div > div:first-child [style*="margin:0 17px"] { margin: 0 14px 14px !important; }
+
+    /* Блок задач: gap между карточками */
+    #screen-tasks > div > div:nth-child(2) { gap: 10px !important; }
+
+    /* Карточки задач */
+    #screen-tasks [style*="border-radius:16px"][style*="padding:20px"] { padding: 14px !important; gap: 12px !important; align-items: flex-start !important; }
+
+    /* Иконки эмодзи: 54px → 40px */
+    #screen-tasks [style*="width:54px"] {
+      width: 40px !important;
+      height: 40px !important;
+      font-size: 20px !important;
+      border-radius: 10px !important;
+    }
+
+    /* ── Типографика ── */
+    /* Название задачи: 15px → 13px */
+    #screen-tasks [style*="font-size:15px"] { font-size: 13px !important; }
+
+    /* Текст/описание: 14px → 12px */
+    #screen-tasks [style*="font-size:14px"] { font-size: 12px !important; }
+
+    /* Мета (время, batch-id): 13px → 11px */
+    #screen-tasks [style*="font-size:13px"] { font-size: 11px !important; }
+
+    /* Batch ID: 12px → 11px */
+    #screen-tasks [style*="font-size:12px"][style*="color:#2E7D32"] { font-size: 11px !important; }
+
+    /* Прогресс процент: 20px → 16px */
+    #screen-tasks [style*="font-size:20px"] { font-size: 16px !important; }
+
+    /* Счётчик эмодзи в задачах: 28px → 20px (уже через width:54px) */
+
+    /* ── Done-секция ── */
+    #done-header [style*="font-size:14px"] { font-size: 12px !important; }
+    #done-header [style*="padding:14px 20px"] { padding: 10px 14px !important; }
+    #done-list > div { padding: 10px 14px !important; }
+
+    /* Кнопки действий (SVG в карточках) */
+    #screen-tasks svg[width="100"] { width: 80px; height: 64px; }
+
+    /* Batch ID под иконкой */
+    .icon-batch-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+    .icon-batch-wrap .batch-id-mobile {
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      color: #2E7D32;
+      white-space: nowrap;
+    }
+    .batch-id-original-hidden { display: none !important; }
+  }
+
+  @media (min-width: 1024px) {
+    .mobile-header { display: none !important; }
+    .slide-panel, .panel-overlay { display: none !important; }
+  }
